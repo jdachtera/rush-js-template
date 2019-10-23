@@ -1,0 +1,63 @@
+name: Node.js Package
+
+on:
+  release:
+    types: [created]
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: node common/scripts/install-run-rush.js install --no-link
+      - run: node common/scripts/install-run-rush.js link
+      - run: node common/scripts/install-run-rush.js rebuild --verbose
+
+      - run: tar -vczf temp.tar.gz common/temp
+      - name: Upload cache
+        uses: actions/upload-artifact@v1
+        with:
+          name: temp
+          path: temp.tar.gz
+
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Download temp cache
+        uses: actions/download-artifact@v1
+        with:
+          name: temp
+      - run: tar -vxzf common/temp/temp.tar.gz && rm common/temp/temp.tar.gz
+      - run: node common/scripts/install-run-rush.js publish -a -b targetBranch -p -r $NPM_REGISTRY_URL -n $NODE_AUTH_TOKEN --add-commit-details
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NPM_REGISTRY_URL: "https://registry.npmjs.org/"
+
+  publish-gpr:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Download temp cache
+        uses: actions/download-artifact@v1
+        with:
+          name: temp
+      - run: tar -vxzf common/temp/temp.tar.gz && rm common/temp/temp.tar.gz
+      - run: node common/scripts/install-run-rush.js publish -a -b targetBranch -p -r $NPM_REGISTRY_URL -n $NODE_AUTH_TOKEN --add-commit-details
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NPM_REGISTRY_URL: "https://npm.pkg.github.com/jdachtera"

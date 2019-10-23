@@ -1,0 +1,18 @@
+name: Node.js PR Version check
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - run: node common/scripts/install-run-rush.js install --no-link
+      - run: node common/scripts/install-run-rush.js link
+      - run: node common/scripts/install-run-rush.js rebuild --verbose
