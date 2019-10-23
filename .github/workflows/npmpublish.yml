@@ -38,7 +38,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: temp
-      - run: tar -vxzf temp.tar.gz && rm temp.tar.gz
+      - run: tar -vxzf temp/temp.tar.gz && rm temp/temp.tar.gz
       - run: node common/scripts/install-run-rush.js publish -a -b master -p -r $NPM_REGISTRY_URL -n $NODE_AUTH_TOKEN --add-commit-details
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
@@ -56,7 +56,7 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: temp
-      - run: tar -vxzf temp.tar.gz && rm temp.tar.gz
+      - run: tar -vxzf temp/temp.tar.gz && rm temp/temp.tar.gz
       - run: node common/scripts/install-run-rush.js publish -a -b master -p -r $NPM_REGISTRY_URL -n $NODE_AUTH_TOKEN --add-commit-details
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
