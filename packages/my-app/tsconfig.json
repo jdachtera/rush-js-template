@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "incremental": true /* Enable incremental compilation */,
+    "target": "es5",
+    "module": "commonjs",
+    "lib": ["es2015", "dom"],
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "lib",
+    "removeComments": true,
+    "declaration": true
+  },
+  "include": ["src/**/*"]
+}
