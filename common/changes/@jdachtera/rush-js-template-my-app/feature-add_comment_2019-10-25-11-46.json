@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "@jdachtera/rush-js-template-my-app",
+      "comment": "publish packages",
+      "type": "patch"
+    }
+  ],
+  "packageName": "@jdachtera/rush-js-template-my-app",
+  "email": "jascha@flowkey.com"
+}
