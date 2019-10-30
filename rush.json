@@ -299,10 +299,12 @@
    */
   "projects": [
     {
+      "shouldPublish": true,
       "packageName": "@jdachtera/rush-js-template-my-library",
       "projectFolder": "packages/my-library"
     },
     {
+      "shouldPublish": true,
       "packageName": "@jdachtera/rush-js-template-my-app",
       "projectFolder": "packages/my-app"
     }
