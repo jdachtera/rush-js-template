@@ -39,6 +39,7 @@ jobs:
         with:
           name: temp
       - run: tar -vxzf temp/temp.tar.gz && rm temp/temp.tar.gz
+      - run: git config --global user.email "ci@example.com" && git config --global user.name "Github Actions"
       - run: node common/scripts/install-run-rush.js publish -a -b master -p -r $NPM_REGISTRY_URL -n $NODE_AUTH_TOKEN --add-commit-details
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
@@ -57,6 +58,7 @@ jobs:
         with:
           name: temp
       - run: tar -vxzf temp/temp.tar.gz && rm temp/temp.tar.gz
+      - run: git config --global user.email "ci@example.com" && git config --global user.name "Github Actions"
       - run: node common/scripts/install-run-rush.js publish -a -b master -p -r $NPM_REGISTRY_URL -n $NODE_AUTH_TOKEN --add-commit-details
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
